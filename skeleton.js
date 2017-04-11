@@ -50,41 +50,45 @@ function bodyTracked(body) {
 
 	//push();
 	//translate(handLeft.x, handLeft.y, handLeft.z);
-	var hLGeometry = new THREE.BoxBufferGeometry(20, 20, 20);
-	var hl = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
-		color: Math.random() * 0xffffff
-	}));
-	hl.rotateY(2 * TWO_PI );
-	hl.rotateX(3 * TWO_PI );
-	hl.position.x = handLeft.x;
-	hl.position.y = handLeft.y;
-	hl.position.z = handLeft.z;
+	// var hLGeometry = new THREE.BoxBufferGeometry(20, 20, 20);
+	// var hl = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+	// 	color: Math.random() * 0xffffff
+	// }));
+	// hl.rotateY(2 * TWO_PI);
+	// hl.rotateX(3 * TWO_PI);
+	// hl.position.x = handLeft.x;
+	// hl.position.y = handLeft.y;
+	// hl.position.z = handLeft.z;
 
-	scene.add(hl);
+	// scene.add(hl);
 	//sphere(50);
 	//pop();
 
 	// Put the head on the left hand as if it were the base of the spine
 	// Make it a box
-	var offset =head;
+	var offset = head;
 	//	push();
 	//translate(offset.x, offset.y, offset.z);
 
 
+// 	var geometry = new THREE.BoxBufferGeometry(20, 20, 20);
 
-	var geometry = new THREE.SphereGeometry(15, 20, 10);
-	var headBody = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
-		color: Math.random() * 0xffffff
-	}));
-	// headBody.rotateY(2 * TWO_PI );
-	//headBody.rotateX(3 * TWO_PI );
-	headBody.position.x = -offset.x;
-	headBody.position.y = -offset.y;
-	headBody.position.z = offset.z;
+// //	var geometry = new THREE.SphereGeometry(15, 20, 10);
+// 	var headBody = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
+// 		color:  0xffffff
+// 	}));
+// 	// headBody.rotateY(2 * TWO_PI );
+// 	//headBody.rotateX(3 * TWO_PI );
+// 	headBody.position.x = -offset.x;
+// 	headBody.position.y = -offset.y;
+// 	headBody.position.z = offset.z;
 
-	scene.add(headBody);
+// 	scene.add(headBody);
 	// box(100);
 	//	pop();
+	trapo.position.x = -offset.x;
+	trapo.position.y = -offset.y;
+	trapo.position.z = -offset.z;
 
 }
 
@@ -106,5 +110,3 @@ function drawJoint(joint) {
 	// sphere(5);
 	// pop();
 }
-
-
