@@ -9,7 +9,8 @@ var camera3D; //be careful because p5.js might have something named camera
 var scene; //be careful because our sketch has something named scene
 var renderer;
 
-
+var trapo;
+var camRot=0;
 
 //key pressed won't work unless you wake up p5 but we are using three.js's "init" funciton instead
 function setup() {}
@@ -34,11 +35,15 @@ function keyPressed() {
 //Three.js version of p5's "setup"
 function init() {
 	scene = new THREE.Scene();
-	
-	var light = new THREE.DirectionalLight(0xffffff, 1);
+
+	// var light = new THREE.DirectionalLight(0xffffff, 1);
+	light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+
+	light.position.set(0, 00, 0);
+
 	light.position.set(1, 1, 1).normalize();
 	scene.add(light);
-	
+
 	camera3D = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
@@ -53,6 +58,15 @@ function init() {
 	});
 	var mesh = new THREE.Mesh(geometry, material);
 	scene.add(mesh);
+
+	var geoTrapo = new THREE.BoxBufferGeometry(20, 20, 20);
+
+	//	var geometry = new THREE.SphereGeometry(15, 20, 10);
+	trapo = new THREE.Mesh(geoTrapo, new THREE.MeshLambertMaterial({
+		color: 0xffffff
+	}));
+
+	scene.add(trapo);
 
 	htmlInterface();
 	//key
@@ -69,6 +83,10 @@ function init() {
 //Three.js version of p5's "draw"
 function animate() {
 	requestAnimationFrame(animate);
+	removeEntity();
+	//camera3D.rotateX=camRot;
+	camera3D.rotation.y =  Math.PI / 180*camRot/-(2.5);
+	camRot++;
 	// Update the textures for each animate frame
 	//animateKey();
 	// animateVideo();
@@ -89,11 +107,21 @@ function onDocumentMouseDownCheckObject(e) {
 	var intersects = raycaster.intersectObjects(objects, true);
 	var tempobj;
 	for (var i = 0; i < intersects.length; i++) {
-		var intersection = intersects[i],
-			tempobj = intersection.object;
+		var intersection = intersects[i];
+		tempobj = intersection.object;
 		//break;
 	}
 	if (tempobj) selectedObject = tempobj
 	console.log("clicked object", selectedObject);
+}
 
+function removeEntity() {
+	var obj, i;
+	for (i = scene.children.length - 1; i >= 0; i--) {
+		obj = scene.children[i];
+		if (obj.is_ob) {
+			scene.remove(obj);
+
+		}
+	}
 }
